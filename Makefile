@@ -3,7 +3,7 @@
 PROJ_NAME=hal
 
 # sources' directories
-SRCS         := $(wildcard src/*.c) $(wildcard lib/FreeRTOS/*.c) $(wildcard lib/enc28j60/*.c)
+SRCS         := $(wildcard src/*.c) $(wildcard lib/FreeRTOS/*.c) $(wildcard lib/enc28j60/*.c) $(wildcard lib/stm32cubef4/*.c)
 SRCSCPP      := $(wildcard src/*.cpp) $(wildcard lib/httpserver/src/*.cpp)
 
 # headers' directories
