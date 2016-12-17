@@ -1,9 +1,5 @@
 #include "main.hpp"
 
-#include "GPIO.hpp"
-#include "Leds.hpp"
-#include "Peripheral.hpp"
-
 #include "server.hpp"
 #include "request.hpp"
 #include "response.hpp"

@@ -3,8 +3,6 @@
 
 #include "system_config.hpp"
 #include "debug.hpp"
-#include "Leds.hpp"
-#include "interrupts.hpp"
 extern "C" {
 #include "FreeRTOS.h"
 #include "FreeRTOS_IP.h"
