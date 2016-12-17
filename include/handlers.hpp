@@ -1,6 +1,6 @@
 #include <cstdlib>
 
-#include "stm32f4xx_hal.h"
+#include "stm32f1xx_hal.h"
 #include "debug.hpp"
 #include "FreeRTOS.h"
 #include "FreeRTOS_IP.h"
@@ -10,7 +10,7 @@
 
 
 extern "C" {
-     // some declaration of stm32cubef4 and FreeRTOS functions
+     // some declaration of stm32cubef1 and FreeRTOS functions
      void HAL_IncTick(void);
      void xPortSysTickHandler( void );
      void EXTI0_IRQHandler(void);

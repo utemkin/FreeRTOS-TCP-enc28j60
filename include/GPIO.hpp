@@ -5,7 +5,7 @@
 #include <list>
 #include <algorithm>
 
-#include "stm32f4xx_hal.h"
+#include "stm32f1xx_hal.h"
 
 namespace GPIO {
     /**
@@ -61,41 +61,9 @@ namespace GPIO {
      * Specifies the speed for the selected pins.
      */
     enum class Speed : uint32_t {
-        Low = GPIO_SPEED_LOW,
-        Medium = GPIO_SPEED_MEDIUM,
-        Fast = GPIO_SPEED_FAST,
-        High = GPIO_SPEED_HIGH
-    };
-
-
-    /**
-     * Specifies peripheral to be connected to the selected pins.
-     */
-    enum class AlternateFunction : uint8_t {
-        
-        AlternateFunction_1_Timer_1 = GPIO_AF1_TIM1,
-        AlternateFunction_1_Timer_2 = GPIO_AF1_TIM2,
-        AlternateFunction_2_Timer_3 = GPIO_AF2_TIM3,
-        AlternateFunction_2_Timer_4 = GPIO_AF2_TIM4,
-        AlternateFunction_2_Timer_5 = GPIO_AF2_TIM5,
-        AlternateFunction_3_Timer_8 = GPIO_AF3_TIM8,
-        AlternateFunction_3_Timer_9 = GPIO_AF3_TIM9,
-        AlternateFunction_3_Timer_10 = GPIO_AF3_TIM10,
-        AlternateFunction_3_Timer_11 = GPIO_AF3_TIM11,
-        AlternateFunction_9_Timer_12 = GPIO_AF9_TIM12,
-        AlternateFunction_9_Timer_13 = GPIO_AF9_TIM13,
-        AlternateFunction_9_Timer_14 = GPIO_AF9_TIM14,
-        AlternateFunction_5_SPI_1 = GPIO_AF5_SPI1,
-        AlternateFunction_5_SPI_2 = GPIO_AF5_SPI2,
-        // AlternateFunction_5_SPI_3 = GPIO_AF5_SPI3,
-        // AlternateFunction_5_SPI_4 = GPIO_AF5_SPI4,
-        // AlternateFunction_5_SPI_5 = GPIO_AF5_SPI5,
-        // AlternateFunction_5_SPI_6 = GPIO_AF5_SPI6,
-        // AlternateFunction_6_SPI_2 = GPIO_AF6_SPI2,
-        AlternateFunction_6_SPI_3 = GPIO_AF6_SPI3,
-        // AlternateFunction_6_SPI_4 = GPIO_AF6_SPI4,
-        // AlternateFunction_6_SPI_5 = GPIO_AF6_SPI5,
-        None = 0
+        Low = GPIO_SPEED_FREQ_LOW,
+        Medium = GPIO_SPEED_FREQ_MEDIUM,
+        High = GPIO_SPEED_FREQ_HIGH
     };
 
 
@@ -109,7 +77,7 @@ namespace GPIO {
             GPIO_TypeDef *peripheral;
             std::bitset<16> pins_bitmask = std::bitset<16>();
         public:
-            GPIOPins(GPIO_TypeDef *peripheral, std::initializer_list<Pin> pins, Mode mode, Pull pull, Speed speed, AlternateFunction alternate = AlternateFunction::None);
+            GPIOPins(GPIO_TypeDef *peripheral, std::initializer_list<Pin> pins, Mode mode, Pull pull, Speed speed);
             ~GPIOPins();
             void turn_on();
             void turn_off();

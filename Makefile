@@ -3,11 +3,11 @@
 PROJ_NAME=hal
 
 # sources' directories
-SRCS         := $(wildcard src/*.c) $(wildcard lib/FreeRTOS/*.c) $(wildcard lib/enc28j60/*.c) $(wildcard lib/stm32cubef4/*.c)
+SRCS         := $(wildcard src/*.c) $(wildcard lib/FreeRTOS/*.c) $(wildcard lib/enc28j60/*.c) $(wildcard lib/stm32cubef1/*.c)
 SRCSCPP      := $(wildcard src/*.cpp) $(wildcard lib/httpserver/src/*.cpp)
 
 # headers' directories
-CINCS := -Iinclude -Ilib/stm32cubef4/include -Ilib/stm32cubef4/include/Legacy 
+CINCS := -Iinclude -Ilib/stm32cubef1/include -Ilib/stm32cubef1/include/Legacy 
 CINCS += -Ilib/FreeRTOS/include 
 CINCS += -Ilib/enc28j60/include
 CINCS += -Ilib/httpserver/include
@@ -27,7 +27,7 @@ BUILDDIR  := build
 OBJSDIR   := $(BUILDDIR)/objs
 DEPSDIR   := $(BUILDDIR)/deps
 
-DEFINES   := -DSTM32F407xx
+DEFINES   := -DSTM32F103xE
 
 # You don't need to edit anything below this line
 ###################################################
@@ -43,24 +43,27 @@ OBJSLIB := $(addprefix $(OBJSDIR)/, $(OBJSLIB))
 CC=arm-none-eabi-gcc
 OBJCOPY=arm-none-eabi-objcopy
 
+#-mcpu=cortex-m3 -mthumb -mfloat-abi=soft -D__weak="__attribute__((weak))" -D__packed="__attribute__((__packed__))" -DUSE_HAL_DRIVER -DSTM32F103xE -I"C:/software/embedded/projects/heat_control/firmware/Inc" -IC:/eclipseopenstm32/STM32Cube/Repository/STM32Cube_FW_F1_V1.4.0/Drivers/STM32F1xx_HAL_Driver/Inc -IC:/eclipseopenstm32/STM32Cube/Repository/STM32Cube_FW_F1_V1.4.0/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -IC:/eclipseopenstm32/STM32Cube/Repository/STM32Cube_FW_F1_V1.4.0/Drivers/CMSIS/Include -IC:/eclipseopenstm32/STM32Cube/Repository/STM32Cube_FW_F1_V1.4.0/Drivers/CMSIS/Device/ST/STM32F1xx/Include  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/gpio.d" -MT"Src/gpio.o" -o "Src/gpio.o" "../Src/gpio.c"
 
 # C compiler's options
 CFLAGS := -Wall -std=c11
-CFLAGS += -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork
-CFLAGS += -mfpu=fpv4-sp-d16 -mfloat-abi=softfp
+CFLAGS += -mlittle-endian -mthumb -mcpu=cortex-m3
+# -mthumb-interwork
+#CFLAGS += -mfpu=fpv4-sp-d16 -mfloat-abi=softfp
 CFLAGS += -fdata-sections -ffunction-sections
 CFLAGS += $(DEFINES)
 
 # Cpp compiler's settings
 CPP=arm-none-eabi-g++
 CPPFLAGS := -Wall -std=c++11
-CPPFLAGS += -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork
-CPPFLAGS += -mfpu=fpv4-sp-d16 -mfloat-abi=softfp
+CPPFLAGS += -mlittle-endian -mthumb -mcpu=cortex-m3
+# -mthumb-interwork
+#CPPFLAGS += -mfpu=fpv4-sp-d16 -mfloat-abi=softfp
 CPPFLAGS += -fdata-sections -ffunction-sections
 CPPFLAGS += $(DEFINES)
 
 # linker's scripts
-LDSRCS    := ldscripts/libs.ld ldscripts/mem.ld ldscripts/sections.ld
+LDSRCS    := ldscripts/STM32F103VETx_FLASH.ld
 
 # linker's settings
 LDFLAGS := $(LDSRCS:%=-T%) -specs=rdimon.specs -Wl,--gc-sections
@@ -68,7 +71,7 @@ LDFLAGS := $(LDSRCS:%=-T%) -specs=rdimon.specs -Wl,--gc-sections
 
 # advanced settings
 #
-# LDLIBS  = -Llib -lstm32f4
+# LDLIBS  = -Llib -lstm32f1
 # -mfpu=fpv4-sp-d16
 # CFLAGS += -ffreestanding -nostdlib
 
@@ -102,11 +105,11 @@ echo_variables:
 link_needed_lib: $(addprefix $(DEPSDIR)/, $(SRCS:%.c=%.d)) $(addprefix $(DEPSDIR)/, $(SRCSCPP:%.cpp=%.d))
 	@for i in "$(DEPSDIR)/src/*.d"; do \
 		sed 's/\\//g; s/ /\n/g;' $$i | \
-		grep 'stm32f4xx_.*\.h' | \
-		sed -e '/stm32f4xx_hal_conf.h/d'     \
-		    -e '/stm32f4xx_hal_def.h/d'      \
-		    -e '/stm32f4xx_hal_gpio_ex.h/d;' \
-		    -e '/stm32f4xx_it.h/d;' \
+		grep 'stm32f1xx_.*\.h' | \
+		sed -e '/stm32f1xx_hal_conf.h/d'     \
+		    -e '/stm32f1xx_hal_def.h/d'      \
+		    -e '/stm32f1xx_hal_gpio_ex.h/d;' \
+		    -e '/stm32f1xx_it.h/d;' \
 			-e 's:/include::g; s/h$$/o/g' >> objslib.tmp ;\
 	done
 	@rm -f objslib.mk
@@ -132,7 +135,7 @@ proj: $(PROJ_NAME).elf
 
 $(PROJ_NAME).elf: $(OBJS) $(OBJSLIB) $(OBJSCPP)
 	@echo "  (LDCPP) -o $@ $^"
-	@$(CPP) -o $@ $^ src/startup_stm32f407xx.s $(CPPFLAGS) $(LDFLAGS) $(CINCS)  $(LDLIBS)
+	@$(CPP) -o $@ $^ src/startup_stm32f103xe.s $(CPPFLAGS) $(LDFLAGS) $(CINCS)  $(LDLIBS)
 	$(OBJCOPY) -O ihex $(PROJ_NAME).elf $(PROJ_NAME).hex
 	$(OBJCOPY) -O binary $(PROJ_NAME).elf $(PROJ_NAME).bin
 
@@ -153,12 +156,12 @@ $(OBJSDIR)/%.o : %.cpp
 # TODO: maybe dynamic creation of directories
 $(BUILDDIR):
 	mkdir -p $(OBJSDIR)/src
-	mkdir -p $(OBJSDIR)/lib/stm32cubef4
+	mkdir -p $(OBJSDIR)/lib/stm32cubef1
 	mkdir -p $(OBJSDIR)/lib/FreeRTOS
 	mkdir -p $(OBJSDIR)/lib/enc28j60
 	mkdir -p $(OBJSDIR)/lib/httpserver/src
 	mkdir -p $(DEPSDIR)/src
-	mkdir -p $(DEPSDIR)/lib/stm32cubef4
+	mkdir -p $(DEPSDIR)/lib/stm32cubef1
 	mkdir -p $(DEPSDIR)/lib/FreeRTOS
 	mkdir -p $(DEPSDIR)/lib/enc28j60
 	mkdir -p $(DEPSDIR)/lib/httpserver/src

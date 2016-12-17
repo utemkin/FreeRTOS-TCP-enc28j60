@@ -1,16 +1,14 @@
 /**
   ******************************************************************************
-  * @file    stm32f4xx_hal_msp_template.c
+  * @file    stm32f1xx_hal_pcd_ex.h
   * @author  MCD Application Team
-  * @version V1.3.0
-  * @date    09-March-2015
-  * @brief   This file contains the HAL System and Peripheral (PPP) MSP initialization
-  *          and de-initialization functions.
-  *          It should be copied to the application folder and renamed into 'stm32f4xx_hal_msp.c'.           
+  * @version V1.0.4
+  * @date    29-April-2016
+  * @brief   Header file of Extended PCD HAL module.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -37,83 +35,82 @@
   ******************************************************************************
   */ 
 
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __STM32F1xx_HAL_PCD_EX_H
+#define __STM32F1xx_HAL_PCD_EX_H
+
+#ifdef __cplusplus
+ extern "C" {
+#endif
+
+#if defined(STM32F102x6) || defined(STM32F102xB) || \
+    defined(STM32F103x6) || defined(STM32F103xB) || \
+    defined(STM32F103xE) || defined(STM32F103xG) || \
+    defined(STM32F105xC) || defined(STM32F107xC)
+
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f4xx_hal.h"
+#include "stm32f1xx_hal_def.h"
 
-/** @addtogroup STM32F4xx_HAL_Driver
+/** @addtogroup STM32F1xx_HAL_Driver
   * @{
   */
 
-/** @defgroup HAL_MSP HAL MSP
-  * @brief HAL MSP module.
+/** @addtogroup PCDEx
   * @{
   */
 
-/* Private typedef -----------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
-/* Private function prototypes -----------------------------------------------*/
-/* Private functions ---------------------------------------------------------*/
-
-/** @defgroup HAL_MSP_Private_Functions HAL MSP Private Functions
+/* Exported types ------------------------------------------------------------*/
+/* Exported constants --------------------------------------------------------*/
+/* Exported macros -----------------------------------------------------------*/
+/* Exported functions --------------------------------------------------------*/
+/** @addtogroup PCDEx_Exported_Functions PCDEx Exported Functions
   * @{
   */
-
-/**
-  * @brief  Initializes the Global MSP.
-  * @note   This function is called from HAL_Init() function to perform system
-  *         level initialization (GPIOs, clock, DMA, interrupt).
-  * @retval None
+/** @addtogroup PCDEx_Exported_Functions_Group1 Peripheral Control functions
+  * @{
   */
-void HAL_MspInit(void)
-{
+#if defined (USB_OTG_FS)
+HAL_StatusTypeDef HAL_PCDEx_SetTxFiFo(PCD_HandleTypeDef *hpcd, uint8_t fifo, uint16_t size);
+HAL_StatusTypeDef HAL_PCDEx_SetRxFiFo(PCD_HandleTypeDef *hpcd, uint16_t size);
+#endif /* USB_OTG_FS */
 
-}
-
-/**
-  * @brief  DeInitializes the Global MSP.
-  * @note   This functiona is called from HAL_DeInit() function to perform system
-  *         level de-initialization (GPIOs, clock, DMA, interrupt).
-  * @retval None
-  */
-void HAL_MspDeInit(void)
-{
-
-}
-
-/**
-  * @brief  Initializes the PPP MSP.
-  * @note   This functiona is called from HAL_PPP_Init() function to perform 
-  *         peripheral(PPP) system level initialization (GPIOs, clock, DMA, interrupt)
-  * @retval None
-  */
-void HAL_PPP_MspInit(void)
-{
-
-}
-
-/**
-  * @brief  DeInitializes the PPP MSP.
-  * @note   This functiona is called from HAL_PPP_DeInit() function to perform 
-  *         peripheral(PPP) system level de-initialization (GPIOs, clock, DMA, interrupt)
-  * @retval None
-  */
-void HAL_PPP_MspDeInit(void)
-{
-
-}
-
+#if defined (USB)
+HAL_StatusTypeDef HAL_PCDEx_PMAConfig(PCD_HandleTypeDef *hpcd, 
+                                     uint16_t ep_addr,
+                                     uint16_t ep_kind,
+                                     uint32_t pmaadress);
+#endif /* USB */
 /**
   * @}
   */
 
+/** @addtogroup PCDEx_Exported_Functions_Group2 Peripheral State functions
+  * @{
+  */
+void HAL_PCDEx_SetConnectionState(PCD_HandleTypeDef *hpcd, uint8_t state);
 /**
   * @}
   */
+/**
+  * @}
+  */
+/**
+  * @}
+  */ 
 
 /**
   * @}
   */
+#endif /* STM32F102x6 || STM32F102xB || */
+       /* STM32F103x6 || STM32F103xB || */
+       /* STM32F103xE || STM32F103xG || */
+       /* STM32F105xC || STM32F107xC    */
+
+#ifdef __cplusplus
+}
+#endif
+
+
+#endif /* __STM32F1xx_HAL_PCD_EX_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

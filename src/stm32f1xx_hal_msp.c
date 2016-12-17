@@ -1,14 +1,16 @@
 /**
   ******************************************************************************
-  * @file    system_stm32f4xx.h
+  * @file    stm32f1xx_hal_msp_template.c
   * @author  MCD Application Team
-  * @version V2.3.0
-  * @date    02-March-2015
-  * @brief   CMSIS Cortex-M4 Device System Source File for STM32F4xx devices.       
-  ******************************************************************************  
+  * @version V1.0.4
+  * @date    29-April-2016
+  * @brief   HAL BSP module.
+  *          This file template is located in the HAL folder and should be copied 
+  *          to the user folder.
+  ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -35,88 +37,75 @@
   ******************************************************************************  
   */ 
 
-/** @addtogroup CMSIS
+/* Includes ------------------------------------------------------------------*/
+#include "stm32f1xx_hal.h"
+
+/** @addtogroup STM32F1xx_HAL_Driver
   * @{
   */
 
-/** @addtogroup stm32f4xx_system
-  * @{
-  */  
-  
-/**
-  * @brief Define to prevent recursive inclusion
-  */
-#ifndef __SYSTEM_STM32F4XX_H
-#define __SYSTEM_STM32F4XX_H
-
-#ifdef __cplusplus
- extern "C" {
-#endif 
-
-/** @addtogroup STM32F4xx_System_Includes
+/** @defgroup HAL_MSP HAL_MSP
+  * @brief HAL MSP module.
   * @{
   */
 
-/**
-  * @}
-  */
+/* Private typedef -----------------------------------------------------------*/
+/* Private define ------------------------------------------------------------*/
+/* Private macro -------------------------------------------------------------*/
+/* Private variables ---------------------------------------------------------*/
+/* Private function prototypes -----------------------------------------------*/
+/* Private functions ---------------------------------------------------------*/
 
-
-/** @addtogroup STM32F4xx_System_Exported_types
-  * @{
-  */
-  /* This variable is updated in three ways:
-      1) by calling CMSIS function SystemCoreClockUpdate()
-      2) by calling HAL API function HAL_RCC_GetSysClockFreq()
-      3) each time HAL_RCC_ClockConfig() is called to configure the system clock frequency 
-         Note: If you use this function to configure the system clock; then there
-               is no need to call the 2 first functions listed above, since SystemCoreClock
-               variable is updated automatically.
-  */
-extern uint32_t SystemCoreClock;          /*!< System Clock Frequency (Core Clock) */
-
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Exported_Constants
+/** @defgroup HAL_MSP_Exported_Functions HAL MSP Exported Functions
   * @{
   */
 
 /**
-  * @}
+  * @brief  Initializes the Global MSP.
+  * @retval None
   */
+void HAL_MspInit(void)
+{
 
-/** @addtogroup STM32F4xx_System_Exported_Macros
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Exported_Functions
-  * @{
-  */
-  
-extern void SystemInit(void);
-extern void SystemCoreClockUpdate(void);
-/**
-  * @}
-  */
-
-#ifdef __cplusplus
 }
-#endif
 
-#endif /*__SYSTEM_STM32F4XX_H */
+/**
+  * @brief  DeInitializes the Global MSP.
+  * @retval None
+  */
+void HAL_MspDeInit(void)
+{
+
+}
+
+/**
+  * @brief  Initializes the PPP MSP.
+  * @retval None
+  */
+void HAL_PPP_MspInit(void)
+{
+
+}
+
+/**
+  * @brief  DeInitializes the PPP MSP.
+  * @retval None
+  */
+void HAL_PPP_MspDeInit(void)
+{
+
+}
 
 /**
   * @}
   */
-  
+
 /**
   * @}
-  */  
+  */
+
+/**
+  * @}
+  */
+
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

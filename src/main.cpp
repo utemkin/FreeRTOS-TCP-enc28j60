@@ -45,7 +45,7 @@ void prvPingTask(void *pvParameters);
 
 int main()
 {
-    /* STM32F4xx HAL library initialization:
+    /* STM32F1xx HAL library initialization:
        - Configure the Flash prefetch, Flash preread and Buffer caches
        - Systick timer is configured by default as source of time base, but user
              can eventually implement his proper time base source (a general purpose
@@ -85,7 +85,6 @@ void prvInit( void *pvParameters )
     GPIO_InitStruct.Mode      = GPIO_MODE_IT_RISING;
     GPIO_InitStruct.Pull      = GPIO_NOPULL;
     GPIO_InitStruct.Speed     = GPIO_SPEED_LOW;
-    GPIO_InitStruct.Alternate = 0;
 
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 

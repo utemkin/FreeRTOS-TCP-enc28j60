@@ -1,7 +1,7 @@
 #include "GPIO.hpp"
 
 namespace GPIO {
-    GPIOPins::GPIOPins(GPIO_TypeDef *peripheral, std::initializer_list<Pin> pins, Mode mode, Pull pull, Speed speed, AlternateFunction alternate /*= AlternateFunction::None*/) {
+    GPIOPins::GPIOPins(GPIO_TypeDef *peripheral, std::initializer_list<Pin> pins, Mode mode, Pull pull, Speed speed) {
         this->peripheral = peripheral;
         
         for (const auto &pin : pins) {
@@ -23,10 +23,6 @@ namespace GPIO {
                 __GPIOF_CLK_ENABLE();
             else if (peripheral == GPIOG)
                 __GPIOG_CLK_ENABLE();
-            else if (peripheral == GPIOH)
-                __GPIOH_CLK_ENABLE();
-            else if (peripheral == GPIOI)
-                __GPIOI_CLK_ENABLE();
         }
         
         initialized_peripherals.push_back(peripheral);
@@ -36,8 +32,6 @@ namespace GPIO {
         init_configuration.Mode = static_cast<uint32_t>(mode);
         init_configuration.Pull = static_cast<uint32_t>(pull);
         init_configuration.Speed = static_cast<uint32_t>(speed);        
-        if (alternate != AlternateFunction::None)
-            init_configuration.Alternate = static_cast<uint8_t>(alternate);
         
         HAL_GPIO_Init(peripheral, &init_configuration);
     }
@@ -63,10 +57,6 @@ namespace GPIO {
                 __GPIOF_CLK_DISABLE();
             else if (peripheral == GPIOG)
                 __GPIOG_CLK_DISABLE();
-            else if (peripheral == GPIOH)
-                __GPIOH_CLK_DISABLE();
-            else if (peripheral == GPIOI)
-                __GPIOI_CLK_DISABLE();
         }
     }
     

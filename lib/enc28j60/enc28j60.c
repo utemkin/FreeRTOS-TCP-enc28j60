@@ -79,8 +79,7 @@ void prvSoftTimerInt(void *unused, uint32_t unused2)
 	GPIO_InitStruct.Pin       = GPIO_PIN_13;
     GPIO_InitStruct.Mode      = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull      = GPIO_NOPULL;
-    GPIO_InitStruct.Speed     = GPIO_SPEED_FAST;
-    GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
+    GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
 
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
@@ -88,8 +87,7 @@ void prvSoftTimerInt(void *unused, uint32_t unused2)
 	GPIO_InitStruct.Pin       = GPIO_PIN_15;
     GPIO_InitStruct.Mode      = GPIO_MODE_AF_PP;
     // GPIO_InitStruct.Pull      = GPIO_NOPULL;
-    // GPIO_InitStruct.Speed     = GPIO_SPEED_FAST;
-    // GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
+    // GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
 
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
@@ -97,8 +95,7 @@ void prvSoftTimerInt(void *unused, uint32_t unused2)
 	GPIO_InitStruct.Pin       = GPIO_PIN_14;
     GPIO_InitStruct.Mode      = GPIO_MODE_AF_PP;
     // GPIO_InitStruct.Pull      = GPIO_NOPULL;
-    // GPIO_InitStruct.Speed     = GPIO_SPEED_FAST;
-    // GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
+    // GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
 
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
@@ -106,8 +103,7 @@ void prvSoftTimerInt(void *unused, uint32_t unused2)
 	GPIO_InitStruct.Pin       = GPIO_PIN_12;
     GPIO_InitStruct.Mode      = GPIO_MODE_OUTPUT_PP;
     // GPIO_InitStruct.Pull      = GPIO_NOPULL;
-    // GPIO_InitStruct.Speed     = GPIO_SPEED_FAST;
-    // GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
+    // GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
 
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
@@ -115,8 +111,7 @@ void prvSoftTimerInt(void *unused, uint32_t unused2)
 	GPIO_InitStruct.Pin       = GPIO_PIN_1;
     GPIO_InitStruct.Mode      = GPIO_MODE_OUTPUT_PP;
     // GPIO_InitStruct.Pull      = GPIO_NOPULL;
-    // GPIO_InitStruct.Speed     = GPIO_SPEED_FAST;
-    GPIO_InitStruct.Alternate = 0;
+    // GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
 
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
@@ -125,7 +120,6 @@ void prvSoftTimerInt(void *unused, uint32_t unused2)
     GPIO_InitStruct.Mode      = GPIO_MODE_IT_FALLING;
     GPIO_InitStruct.Pull      = GPIO_NOPULL;
     GPIO_InitStruct.Speed     = GPIO_SPEED_HIGH;
-    GPIO_InitStruct.Alternate = 0;
 
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
