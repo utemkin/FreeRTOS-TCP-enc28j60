@@ -1,0 +1,8 @@
+si 1
+speed auto
+device stm32f103ve
+rsettype 3
+loadbin .\hal.bin, 0
+r
+g
+exit

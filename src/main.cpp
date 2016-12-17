@@ -38,7 +38,6 @@ static const uint8_t ucDNSServerAddress[ 4 ] = { 208, 67, 222, 222 };
 void prvInit( void *pvParameters );
 void prvPingTask(void *pvParameters);
 
-
 int main()
 {
     /* STM32F1xx HAL library initialization:
@@ -56,6 +55,8 @@ int main()
     SystemClock_Config();
 
     HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
+
+    debug("Started at %lu\n", SystemCoreClock);
 
     FreeRTOS_IPInit( ucIPAddress,
                      ucNetMask,

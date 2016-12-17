@@ -66,7 +66,7 @@ CPPFLAGS += $(DEFINES)
 LDSRCS    := ldscripts/STM32F103VETx_FLASH.ld
 
 # linker's settings
-LDFLAGS := $(LDSRCS:%=-T%) -specs=rdimon.specs -Wl,--gc-sections
+LDFLAGS := $(LDSRCS:%=-T%) -specs=nosys.specs -specs=nano.specs -Wl,--gc-sections
 
 
 # advanced settings
