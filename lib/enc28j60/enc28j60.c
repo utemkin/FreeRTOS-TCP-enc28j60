@@ -129,7 +129,7 @@ void prvSoftTimerInt(void *unused, uint32_t unused2)
     // Initialize SPI
     SpiHandle.Instance               = SPI2;
 
-    SpiHandle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
+    SpiHandle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
     SpiHandle.Init.Direction         = SPI_DIRECTION_2LINES;
     SpiHandle.Init.Mode              = SPI_MODE_MASTER;
     SpiHandle.Init.DataSize          = SPI_DATASIZE_8BIT;

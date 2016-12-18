@@ -35,6 +35,7 @@ build
 *.bin
 *.hex
 *.elf
+*.map
 
 # CodeLite
 *.project

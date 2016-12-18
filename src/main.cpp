@@ -30,10 +30,10 @@ void  operator delete[](void* p) noexcept
 uint8_t ucMACAddress[ 6 ] = { 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff };
 static const uint8_t ucIPAddress[ 4 ] = { 192, 168, 0, 2 };
 static const uint8_t ucNetMask[ 4 ] = { 255, 255, 255, 0 };
-static const uint8_t ucGatewayAddress[ 4 ] = { 192, 168, 0, 100 };
+static const uint8_t ucGatewayAddress[ 4 ] = { 192, 168, 0, 1 };
 
 // The following is the address of an OpenDNS server.
-static const uint8_t ucDNSServerAddress[ 4 ] = { 208, 67, 222, 222 };
+static const uint8_t ucDNSServerAddress[ 4 ] = { 192, 168, 0, 1 };
 
 void prvInit( void *pvParameters );
 void prvPingTask(void *pvParameters);
@@ -78,16 +78,16 @@ void prvInit( void *pvParameters )
 	GPIO_InitTypeDef GPIO_InitStruct;
 
     // Initialize button int
-	GPIO_InitStruct.Pin       = GPIO_PIN_0;
-    GPIO_InitStruct.Mode      = GPIO_MODE_IT_RISING;
-    GPIO_InitStruct.Pull      = GPIO_NOPULL;
-    GPIO_InitStruct.Speed     = GPIO_SPEED_LOW;
+//	GPIO_InitStruct.Pin       = GPIO_PIN_0;
+//    GPIO_InitStruct.Mode      = GPIO_MODE_IT_RISING;
+//    GPIO_InitStruct.Pull      = GPIO_NOPULL;
+//    GPIO_InitStruct.Speed     = GPIO_SPEED_LOW;
 
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+//    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-    IRQn_Type irqn_line = EXTI0_IRQn;
-    HAL_NVIC_SetPriority(irqn_line, 7, 7);
-    HAL_NVIC_EnableIRQ(irqn_line);
+//    IRQn_Type irqn_line = EXTI0_IRQn;
+//    HAL_NVIC_SetPriority(irqn_line, 7, 7);
+//    HAL_NVIC_EnableIRQ(irqn_line);
 
     debug("enc28j60: init\n");
     enc28j60_init(ucMACAddress);
@@ -100,6 +100,7 @@ void prvInit( void *pvParameters )
             enc28j60_rcr(ERXFCON));
     xTaskResumeAll();
     //xTaskCreate(prvCheckFlagsTask, "Check", 1000, NULL, 2, NULL);
+    xTaskCreate(prvPingTask, "Ping", 1000, NULL, 2, NULL);
     vTaskDelete(NULL);
 }
 

@@ -135,7 +135,7 @@ proj: $(PROJ_NAME).elf
 
 $(PROJ_NAME).elf: $(OBJS) $(OBJSLIB) $(OBJSCPP)
 	@echo "  (LDCPP) -o $@ $^"
-	@$(CPP) -o $@ $^ src/startup_stm32f103xe.s $(CPPFLAGS) $(LDFLAGS) $(CINCS)  $(LDLIBS)
+	@$(CPP) -o $@ -Wl,-Map,$(PROJ_NAME).map $^ src/startup_stm32f103xe.s $(CPPFLAGS) $(LDFLAGS) $(CINCS)  $(LDLIBS)
 	$(OBJCOPY) -O ihex $(PROJ_NAME).elf $(PROJ_NAME).hex
 	$(OBJCOPY) -O binary $(PROJ_NAME).elf $(PROJ_NAME).bin
 
